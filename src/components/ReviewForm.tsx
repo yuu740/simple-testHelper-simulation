@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Question } from "../interface/Question.interfaces";
+import "../style/ReviewForm.css";
 const ReviewForm: React.FC = () => {
   const location = useLocation();
   const questions: Question[] = location.state?.questions || [];
@@ -15,11 +16,11 @@ const ReviewForm: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h3>Review Questions</h3>
+    <div>
       <form onSubmit={handleSubmitReview}>
+        <h2>Review Questions</h2>
         {questions.map((question) => (
-          <div key={question.id} style={{ marginBottom: "20px" }}>
+          <div key={question.id}>
             <p>
               <strong>Question {question.id}:</strong>
               {question.content}

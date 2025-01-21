@@ -42,12 +42,11 @@ const QuestionForm = () => {
 
   return (
     <div>
-      <h3>Upload the Questions</h3>
       <form onSubmit={handleSubmit}>
-        <label>
+        <h2>
           Make the Question for {subjectName} subject with durations {duration}{" "}
           minutes, Casemaker {casemakeName}
-        </label>
+        </h2>
         {questions.map((question) => (
           <div
             className="question-div"
