@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../style/SubjectDuration.css";
+import "../style/SubjectCaseMakeForm.css";
 
 const SubjectDuration = () => {
   const navigate = useNavigate();
@@ -13,6 +13,8 @@ const SubjectDuration = () => {
 
   const [selectedSubjectId, setSelectedSubjectId] = useState<string>("");
   const [subjectName, setSubjectName] = useState<string>("");
+  const [duration, setDuration] = useState<number>(100);
+  const [error, setError] = useState<string>("");
 
   const handleSubjectIdChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -27,8 +29,25 @@ const SubjectDuration = () => {
 
   const handleNext = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    navigate("/casemakeform");
+
+    if (error) {
+      return;
+    }
+    navigate("/casemakeform", { state: { subjectName, duration } });
   };
+
+  const isFormValid = selectedSubjectId && subjectName && !error;
+
+  const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    setDuration(value);
+    if (value < 100 || value > 180) {
+      setError("Duration must be between 100 and 180 minutes.");
+    } else {
+      setError("");
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleNext}>
@@ -49,8 +68,16 @@ const SubjectDuration = () => {
         <label htmlFor="subjectName">Enter the Subject Name</label>
         <input type="text" id="subjectName" value={subjectName} readOnly />
         <label htmlFor="duration">Enter the Duration (In Minute)</label>
-        <input type="number" id="duration" />
-        <button type="submit">Next</button>
+        <input
+          type="number"
+          id="duration"
+          value={duration}
+          onChange={handleDurationChange}
+        />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit" disabled={!isFormValid}>
+          Next
+        </button>
       </form>
     </div>
   );

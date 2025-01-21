@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../style/CaseMakerForm.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../style/SubjectCaseMakeForm.css";
 
 const CaseMakerForm = () => {
+  const location = useLocation();
+  const subjectName: string = location.state?.subjectName;
+  const duration: number = location.state?.duration;
   const navigate = useNavigate();
 
   const caseMakerListDummy = [
@@ -12,7 +15,7 @@ const CaseMakerForm = () => {
     { casemakeId: "CM004", casemakeName: "Lumine" },
   ];
 
-  const [selectedCasemaketId, setSelectedCasemakeId] = useState<string>("");
+  const [selectedCasemakeId, setSelectedCasemakeId] = useState<string>("");
   const [casemakeName, setCasemakeName] = useState<string>("");
 
   const handleSubjectIdChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -27,8 +30,11 @@ const CaseMakerForm = () => {
   };
   const handleNext = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    navigate("/questionform", { state: { casemakeName } });
+    navigate("/questionform", {
+      state: { casemakeName, subjectName, duration },
+    });
   };
+  const isFormValid = selectedCasemakeId && casemakeName;
   return (
     <div>
       <form onSubmit={handleNext}>
@@ -36,7 +42,7 @@ const CaseMakerForm = () => {
         <label htmlFor="subjectId">Enter the Casemaker ID</label>
         <select
           id="subjectId"
-          value={selectedCasemaketId}
+          value={selectedCasemakeId}
           onChange={handleSubjectIdChange}
         >
           <option value="">Select Casemaker</option>
@@ -48,7 +54,9 @@ const CaseMakerForm = () => {
         </select>
         <label htmlFor="subjectName">Enter the Casemaker Name</label>
         <input type="text" id="subjectName" value={casemakeName} readOnly />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isFormValid}>
+          Submit
+        </button>
       </form>
     </div>
   );

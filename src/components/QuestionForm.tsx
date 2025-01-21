@@ -11,7 +11,9 @@ interface Question {
 
 const QuestionForm = () => {
   const location = useLocation();
-  const casemakeName: string = location.state?.casemakeName || [];
+  const casemakeName: string = location.state?.casemakeName;
+  const subjectName: string = location.state?.subjectName;
+  const duration: number = location.state?.duration;
   const [questions, setQuestions] = useState<Question[]>([
     { id: 1, type: "text", content: "", score: 0 },
   ]);
@@ -48,6 +50,10 @@ const QuestionForm = () => {
     <div style={{ padding: "20px", border: "1px solid blue" }}>
       <h3>Upload the Questions</h3>
       <form onSubmit={handleSubmit}>
+        <label>
+          Make the Question for {subjectName} subject with durations {duration}{" "}
+          minutes, Casemaker {casemakeName}
+        </label>
         {questions.map((question) => (
           <div
             key={question.id}
@@ -58,7 +64,6 @@ const QuestionForm = () => {
               borderRadius: "5px",
             }}
           >
-            <label>Upload Your Question, Casemaker {casemakeName}</label>
             <textarea
               value={question.content}
               onChange={(e) =>
