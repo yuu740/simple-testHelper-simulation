@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Question {
   id: number;
-  type: "text" | "image";
-  content: string | File | null;
+  type: "text";
+  content: string;
   score: number;
 }
 
@@ -11,6 +12,7 @@ const QuestionForm = () => {
   const [questions, setQuestions] = useState<Question[]>([
     { id: 1, type: "text", content: "", score: 0 },
   ]);
+  const navigate = useNavigate();
 
   const handleAddQuestion = () => {
     const newQuestion: Question = {
@@ -36,6 +38,7 @@ const QuestionForm = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("Submitted Questions:", questions);
+    navigate("/reviewform", { state: { questions } });
   };
 
   return (
@@ -53,46 +56,19 @@ const QuestionForm = () => {
             }}
           >
             <label>Upload Your Question</label>
-            <select
-              value={question.type}
+            <textarea
+              value={question.content}
               onChange={(e) =>
-                handleInputChange(question.id, "type", e.target.value)
+                handleInputChange(question.id, "content", e.target.value)
               }
-              style={{ marginLeft: "10px" }}
-            >
-              <option value="text">Text</option>
-              <option value="image">Image</option>
-            </select>
-            {question.type === "text" ? (
-              <textarea
-                value={question.content as string}
-                onChange={(e) =>
-                  handleInputChange(question.id, "content", e.target.value)
-                }
-                placeholder="Enter your question"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  marginTop: "10px",
-                }}
-              />
-            ) : (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) =>
-                  handleInputChange(
-                    question.id,
-                    "content",
-                    e.target.files ? e.target.files[0] : null
-                  )
-                }
-                style={{
-                  display: "block",
-                  marginTop: "10px",
-                }}
-              />
-            )}
+              placeholder="Enter your question"
+              style={{
+                display: "block",
+                width: "100%",
+                marginTop: "10px",
+              }}
+            />
+
             <label style={{ display: "block", marginTop: "10px" }}>
               Score for This Question:
             </label>
