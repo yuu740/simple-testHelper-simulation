@@ -1,13 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-
-interface Question {
-  id: number;
-  type: "text";
-  content: string;
-  score: number;
-}
-
+import { Question } from "../interface/Question.interfaces";
 const ReviewForm: React.FC = () => {
   const location = useLocation();
   const questions: Question[] = location.state?.questions || [];

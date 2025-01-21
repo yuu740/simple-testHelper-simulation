@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../style/QuestionForm.css";
-
-interface Question {
-  id: number;
-  type: "text";
-  content: string;
-  score: number;
-}
+import { Question } from "../interface/Question.interfaces";
 
 const QuestionForm = () => {
   const location = useLocation();
