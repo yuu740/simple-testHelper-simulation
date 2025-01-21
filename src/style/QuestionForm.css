@@ -1,0 +1,56 @@
+div {
+  padding: 20px;
+}
+
+.question-div {
+  width: 98%;
+  border-radius: 10px;
+}
+textarea {
+  display: block;
+  width: 98%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.score-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.score-div input {
+  width: 60px;
+  padding: 2px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: transparent;
+  border-radius: 20px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.add-button {
+  background-color: green;
+  color: white;
+  border: transparent;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.submit-button {
+  display: block;
+  margin-top: 20px;
+  background-color: #008cba;
+  color: white;
+  border: transparent;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+}

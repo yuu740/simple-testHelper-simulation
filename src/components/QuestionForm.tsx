@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../style/QuestionForm.css";
 
@@ -47,7 +47,7 @@ const QuestionForm = () => {
   };
 
   return (
-    <div style={{ padding: "20px", border: "1px solid blue" }}>
+    <div>
       <h3>Upload the Questions</h3>
       <form onSubmit={handleSubmit}>
         <label>
@@ -56,6 +56,7 @@ const QuestionForm = () => {
         </label>
         {questions.map((question) => (
           <div
+            className="question-div"
             key={question.id}
             style={{
               marginBottom: "20px",
@@ -70,72 +71,35 @@ const QuestionForm = () => {
                 handleInputChange(question.id, "content", e.target.value)
               }
               placeholder="Enter your question"
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: "10px",
-              }}
             />
+            <div className="score-div">
+              <label>Score for This Question:</label>
+              <input
+                type="number"
+                value={question.score}
+                onChange={(e) =>
+                  handleInputChange(question.id, "score", e.target.value)
+                }
+              />
+            </div>
 
-            <label style={{ display: "block", marginTop: "10px" }}>
-              Score for This Question:
-            </label>
-            <input
-              type="number"
-              value={question.score}
-              onChange={(e) =>
-                handleInputChange(question.id, "score", e.target.value)
-              }
-              style={{
-                display: "inline-block",
-                width: "50px",
-                textAlign: "center",
-                marginRight: "10px",
-              }}
-            />
             <button
+              className="remove-button"
               type="button"
               onClick={() => handleRemoveQuestion(question.id)}
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                padding: "5px",
-                cursor: "pointer",
-              }}
             >
               Remove
             </button>
           </div>
         ))}
         <button
+          className="add-button"
           type="button"
           onClick={handleAddQuestion}
-          style={{
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            padding: "10px",
-            cursor: "pointer",
-          }}
         >
           +
         </button>
-        <button
-          type="submit"
-          style={{
-            display: "block",
-            marginTop: "20px",
-            backgroundColor: "#008CBA",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
+        <button type="submit" className="submit-button">
           Submit
         </button>
       </form>
