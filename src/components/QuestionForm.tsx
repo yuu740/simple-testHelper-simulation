@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../style/QuestionForm.css";
 
 interface Question {
@@ -10,6 +10,8 @@ interface Question {
 }
 
 const QuestionForm = () => {
+  const location = useLocation();
+  const casemakeName: string = location.state?.casemakeName || [];
   const [questions, setQuestions] = useState<Question[]>([
     { id: 1, type: "text", content: "", score: 0 },
   ]);
@@ -44,7 +46,7 @@ const QuestionForm = () => {
 
   return (
     <div style={{ padding: "20px", border: "1px solid blue" }}>
-      <h3>Upload Your Questions</h3>
+      <h3>Upload the Questions</h3>
       <form onSubmit={handleSubmit}>
         {questions.map((question) => (
           <div
@@ -56,7 +58,7 @@ const QuestionForm = () => {
               borderRadius: "5px",
             }}
           >
-            <label>Upload Your Question</label>
+            <label>Upload Your Question, Casemaker {casemakeName}</label>
             <textarea
               value={question.content}
               onChange={(e) =>
